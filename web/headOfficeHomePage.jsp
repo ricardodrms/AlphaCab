@@ -21,6 +21,7 @@
                 <li><a href='driverList.jsp'>View Drivers</a></li>
                 <li><a href='journeysByDay.jsp'>View All Journeys</a></li>
                 <li><a href='dailyReport.jsp'>View Daily Report</a></li>
+                <li><a href='changePrice.jsp'>Change prices</a></li>
             </ul>
         </div>
     </body>

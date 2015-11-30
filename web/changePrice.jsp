@@ -16,13 +16,13 @@
         <h1>Change Prices!</h1>
         <br>
         <%
-            Price price = new Price();
+            Price price = new Price(application.getRealPath("/"));
             %>
             
         <form method="POST"
-              action="the servlet to do this">
-            Price per mile: <input type="text" name="registration" value="<%= price.getPricePerMile()%>"><br>
-            Short Distance modifier (0-5 miles): <input type="text" name="name" value="<%= price.getShortDist()%>"><br>
+              action="ChangePrice.do">
+            Price per mile: <input type="number" name="pricePerMile" value="<%= price.getPricePerMile()%>"><br>
+            Short Distance modifier (0-5 miles): <input type="number" name="short" value="<%= price.getShortDist()%>"><br>
             <input type="submit" value="Change Price">
         </form>
         <FORM>

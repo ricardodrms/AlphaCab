@@ -5,13 +5,22 @@
  */
 package controllers;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.servlet.SessionTrackingMode.URL;
 
 /**
  *
@@ -22,19 +31,17 @@ public class Price {
     private String fileName = "price.txt";
     private double pricePerMile;
     private double shortDist;
+    private String real;
 
-    public Price() {
+    public Price(String realPath) {
         try {
             // FileReader reads text files in the default encoding.
-            FileReader fileReader = 
-                new FileReader(fileName);
-
             // Always wrap FileReader in BufferedReader.
-            BufferedReader bufferedReader = 
-                new BufferedReader(fileReader);
-            String line = bufferedReader.readLine();
+            real = realPath;
+            BufferedReader br = new BufferedReader(new FileReader(real + "WEB-INF/" + fileName));            
+            String line = br.readLine();
             pricePerMile = Double.parseDouble(line.replaceAll("price=", ""));
-            line = bufferedReader.readLine();
+            line = br.readLine();
             shortDist = Double.parseDouble(line.replaceAll("short=", ""));
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Price.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,8 +57,6 @@ public class Price {
     public double getShortDist() {
         return shortDist;
     }
-    
-    
     
     public double getPrice(double distance){
         double price = distance * pricePerMile;
@@ -75,13 +80,11 @@ public class Price {
             String bytes = "price=" + pricePerMile + "\nshort=" + shortDist;
             byte[] buffer = bytes.getBytes();
 
-            FileOutputStream outputStream =
-                new FileOutputStream(fileName);
-
-            outputStream.write(buffer);
-
-            // Always close files.
-            outputStream.close();       
+            String sRootPath = new File("").getAbsolutePath();
+            FileOutputStream fos = new FileOutputStream(real + "WEB-INF/" + fileName, false);
+            fos.write(buffer);
+            fos.flush();
+            fos.close();
         }
         catch(IOException ex) {
             System.out.println(
