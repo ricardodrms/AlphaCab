@@ -77,11 +77,11 @@ public class DriverDB {
         return drivers;
     }
     
-    public Driver doDriverLogin(String name, String pass){
+    public Driver doDriverLogin(String registration, String pass){
         Driver driver = null;
         try {
             Statement state = conn.createStatement();
-            ResultSet rs = state.executeQuery(String.format("SELECT * from drivers WHERE Name = '%s' AND password = '%s'", name, pass));
+            ResultSet rs = state.executeQuery(String.format("SELECT * from drivers WHERE Registration = '%s' AND password = '%s'", registration, pass));
             while(rs.next()){
 
                 driver = new Driver(rs.getString(1), rs.getString(2), rs.getString(3));

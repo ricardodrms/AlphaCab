@@ -10,5 +10,7 @@ package controllers;
  * @author Jarrett
  */
 public class DriverController {
-    
+    public static void displayJobs(){
+        
+    }
 }
