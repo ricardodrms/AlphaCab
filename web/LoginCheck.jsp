@@ -24,6 +24,7 @@
                 if (Drivername != null){
                     
                 session.setAttribute("Drivername", Drivername);
+                session.setAttribute("Registration", Registration);
                 response.sendRedirect("index.jsp");
 
                     out.println("Valid login credentials");
