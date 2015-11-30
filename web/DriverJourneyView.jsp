@@ -19,7 +19,7 @@
     <body>
     <body>
         <h1>All current jobs for driver</h1>
-        <form action="headOfficeHomePage.jsp">
+        <form action="index.jsp">
             <input type="submit" value="Back to menu">
         </form>
         <br>
