@@ -48,10 +48,7 @@ public class HomePageController {
             types.add("<li><a href='login.jsp'>Driver/Admin Login</a></li>");
         } else {
             // Otherwise Driver has Logged in
-            types.add("<li><a href=''>Driver Link 1</a></li>");
-            types.add("<li><a href=''>Driver Link 2</a></li>");
-            types.add("<li><a href=''>Driver Link 3</a></li>");
-            types.add("<li><a href=''>Driver Link 4</a></li>");
+            types.add("<li><a href='DriverJourneyView.jsp'>View all Journeys</a></li>");
         }
         
         return types;
