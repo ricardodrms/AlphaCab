@@ -8,6 +8,7 @@ package controllers;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Time;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,7 +43,9 @@ public class DemandJourney extends HttpServlet {
         Customer customer = (Customer) request.getSession().getAttribute("customer");
         String address = request.getParameter("destination_address");
         address += ", " + request.getParameter("destination_postcode");
-        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("journey_date"));
+        String tempdate = request.getParameter("journey_date");
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = (Date) formatter.parse(tempdate);
         Time time = new Time((new SimpleDateFormat("HH:mm")).parse(request.getParameter("journey_time")).getTime());
         
         Demand demand = new Demand(customer,address,date,time);

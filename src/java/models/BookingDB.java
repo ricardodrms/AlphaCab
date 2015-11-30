@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,9 +30,10 @@ public class BookingDB {
     public boolean addBooking(Demand demand){
         try {
             Statement state = conn.createStatement();
+            String dateString = new SimpleDateFormat("yyyy-MM-dd").format(demand.getDate());
             state.executeUpdate(String.format(
                     "INSERT INTO demands (Name, Address, Destination, Date, Time, Status) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')"
-                    , demand.getName(), demand.getAddress(), demand.getDestination(), demand.getDate(), demand.getTime(), demand.getStatus()));
+                    , demand.getName(), demand.getAddress(), demand.getDestination(), dateString, demand.getTime(), demand.getStatus()));
             state.close();
 
         } catch (SQLException e) {
