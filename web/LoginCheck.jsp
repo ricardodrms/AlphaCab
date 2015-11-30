@@ -13,13 +13,13 @@
         
         <%
             //DriverView
-                String Drivername ="";
-                String Name = request.getParameter("Name");
-                String password = request.getParameter("password");
                 
-                DriverDB Driver = new models.DriverDB((Connection)request.getServletContext().getAttribute("connection"));
+                String Registration = request.getParameter("Registration");
+                String Password = request.getParameter("Password");
                 
-                Drivername = Driver.doDriverLogin(Name, password).getName();
+                DriverDB driver = new models.DriverDB((Connection)request.getServletContext().getAttribute("connection"));
+                
+                String Drivername = driver.doDriverLogin(Registration, Password).getName();
                 //Drivername = Driver.doLogin(Name, password);
                 if (Drivername != null){
                     
