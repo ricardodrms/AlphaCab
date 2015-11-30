@@ -22,7 +22,7 @@ public class HomePageController {
         
         if (driverName.equals("ADMIN")) {
             // User Session is Admin
-            types.add("<li class='active'><a href='index.html'>Home</a></li>");
+            types.add("<li class='active'><a href='index.jsp'>Home</a></li>");
             types.add("<li><a href='assignBooking.jsp'>Assign booking</a></li>");
             types.add("<li><a href='customerList.jsp'>View Customers</a></li>");
             types.add("<li><a href='driverList.jsp'>View Drivers</a></li>");
