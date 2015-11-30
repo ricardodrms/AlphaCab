@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>AlphaCab</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <h1>Journey Details</h1>
+    <form method="POST"
+        action="DemandJourney.do">
+        Destination Address: <input type="text" name="destination_address"><br>
+        Post Code: <input type="text" name="destination_postcode"><br><br>
+        Journey Date: <input type="date" name="journey_date"><br>
+        Time: <input type="time" name="journey_time"><br><br>
+        <input type="submit" value="Demand Jouney">
+    </form>
+    <FORM>
+        <INPUT Type="button" VALUE="Cancel" onClick="history.go(-1);return true;">
+    </FORM>
+</html>

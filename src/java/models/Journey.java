@@ -31,7 +31,7 @@ public class Journey {
         this.date = date;
         this.time = time;
         this.distance = distance;
-        this.cost = calcCost();
+        this.cost = calculateCost();
     }
     
     //for asigning to driver
@@ -42,7 +42,7 @@ public class Journey {
         this.date = demand.getDate();
         this.time = demand.getTime();
         this.distance = demand.getDistance();
-        this.cost = calcCost();
+        this.cost = calculateCost();
     }
 
     public int getId() {
@@ -109,7 +109,7 @@ public class Journey {
         this.time = time;
     }
     
-    public double calcCost(){
+    public double calculateCost(){
         //this needs to go to whereever the pricing is stored and calculate
         return 5;
     }

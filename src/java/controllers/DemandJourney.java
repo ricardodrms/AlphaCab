@@ -5,23 +5,27 @@
  */
 package controllers;
 
-//import db.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
-import javax.servlet.RequestDispatcher;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.BookingDB;
+import models.Customer;
+import models.Demand;
 
 /**
  *
- * @author me-aydin
+ * @author ricardodrms
  */
-@WebServlet(name = "DBServlet", urlPatterns = {"/DBServlet.do"})
-public class DBServlet extends HttpServlet {
+public class DemandJourney extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,20 +35,19 @@ public class DBServlet extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+            throws ServletException, IOException, ParseException {
+        Customer customer = (Customer) request.getSession().getAttribute("customer");
+        String address = request.getParameter("destination_address");
+        address += ", " + request.getParameter("destination_postcode");
+        Date date = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("journey_date"));
+        Time time = new Time((new SimpleDateFormat("HH:mm")).parse(request.getParameter("journey_time")).getTime());
         
-//        DBBean dbBean = new DBBean();
-//        dbBean.setCon((Connection)request.getServletContext().getAttribute("connection"));
-//        dbBean.setTable(request.getParameter("tbl"));
-//        
-//        request.setAttribute("dbbean", dbBean);
-        
-        request.getRequestDispatcher("/WEB-INF/results.jsp").forward(request, response);
-      
-    
+        Demand demand = new Demand(customer,address,date,time);
+        BookingDB bookingDB = new BookingDB((Connection) request.getServletContext().getAttribute("connection"));
+        bookingDB.addBooking(demand);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,7 +62,11 @@ public class DBServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(DemandJourney.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -73,7 +80,11 @@ public class DBServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(DemandJourney.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

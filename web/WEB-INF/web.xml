@@ -16,12 +16,20 @@
         <listener-class>controllers.DBListener</listener-class>
     </listener>
     <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>controllers.NewServlet</servlet-class>
+        <servlet-name>CheckCustomerDetails</servlet-name>
+        <servlet-class>controllers.CheckCustomerDetails</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DemandJourney</servlet-name>
+        <servlet-class>controllers.DemandJourney</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NewServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
+        <servlet-name>CheckCustomerDetails</servlet-name>
+        <url-pattern>/CheckCustomerDetails.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DemandJourney</servlet-name>
+        <url-pattern>/DemandJourney.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

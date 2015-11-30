@@ -71,5 +71,25 @@ public class CustomerDB {
         }//try
         return customers;
     }
+    public boolean checkCustomerExistence(Customer customer) {
+        boolean exists = false;
+        try {
+            Statement state = conn.createStatement();
+            ResultSet rs = state.executeQuery(String.format(
+                    "SELECT * from `customer` WHERE `name` like '%s' AND `address` like '%s'",
+                    customer.getName(), customer.getAddress()));
+            while(rs.next()){
+                exists = true;
+            }
+            
+            state.close();
+            rs.close();
+
+        } catch (SQLException e) {
+            //System.err.println("Error: " + e);
+
+        }//try
+        return exists;
+    }
     
 }

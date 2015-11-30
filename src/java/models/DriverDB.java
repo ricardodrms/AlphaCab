@@ -125,25 +125,4 @@ public class DriverDB {
         return journeys;
     }
     
-    public HeadOffice doAdminLogin(String name, String pass){
-        HeadOffice ho = null;
-        
-        try {
-            Statement state = conn.createStatement();
-            ResultSet rs = state.executeQuery(String.format("SELECT * from drivers WHERE Registration LIKE 'admin' Name = '%s' AND password = '%s'", name, pass));
-            while(rs.next()){
-
-                ho = new HeadOffice(rs.getString(2), rs.getString(3));
-            }
-            
-            state.close();
-            rs.close();
-
-        } catch (SQLException e) {
-            //System.err.println("Error: " + e);
-
-        }//try
-        
-        return ho;
-    }
 }
