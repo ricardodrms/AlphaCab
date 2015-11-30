@@ -2,7 +2,7 @@
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <context-param>
         <param-name>Database</param-name>
-        <param-value>Alphacab</param-value>
+        <param-value>alphacab</param-value>
     </context-param>
     <context-param>
         <param-name>User</param-name>
@@ -19,9 +19,25 @@
         <servlet-name>NewServlet</servlet-name>
         <servlet-class>controllers.NewServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddDriverServlet</servlet-name>
+        <servlet-class>controllers.AddDriverServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteDriverServlet</servlet-name>
+        <servlet-class>controllers.DeleteDriverServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddDriverServlet</servlet-name>
+        <url-pattern>/addDriver.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteDriverServlet</servlet-name>
+        <url-pattern>/deleteDriver.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
