@@ -51,7 +51,7 @@ public class CalculateDistance {
             String address2Encoded = URLEncoder.encode(address2, "UTF-8");
 
             requestURL = baseURL + address1Encoded + "&destinations="
-                    + address2Encoded + "&mode=driving&units=imperial&language=en-US&key=" + APIKEY;
+                    + address2Encoded + "&mode=driving&language=en-US&key=" + APIKEY;
 
             return requestURL;
         } catch (Exception e) {

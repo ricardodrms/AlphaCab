@@ -44,7 +44,7 @@ public class HomePageController {
             */
         } else if (driverName.equals("")) {
             // User Session links to Guest / Public
-            types.add("<li><a href=''>Book a Cab</a></li>");
+            types.add("<li><a href='enterCustomerDetails.html'>Book a Cab</a></li>");
             types.add("<li><a href='login.jsp'>Driver/Admin Login</a></li>");
         } else {
             // Otherwise Driver has Logged in

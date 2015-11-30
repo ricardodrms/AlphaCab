@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -51,6 +52,10 @@ public class DemandJourney extends HttpServlet {
         Demand demand = new Demand(customer,address,date,time);
         BookingDB bookingDB = new BookingDB((Connection) request.getServletContext().getAttribute("connection"));
         bookingDB.addBooking(demand);
+        
+        request.getSession().setAttribute("Demand", demand);
+        RequestDispatcher view = request.getRequestDispatcher("demandConfirmation.jsp");
+        view.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

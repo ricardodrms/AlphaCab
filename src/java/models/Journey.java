@@ -5,6 +5,7 @@
  */
 package models;
 
+import controllers.Price;
 import java.sql.Time;
 import java.util.Date;
 
@@ -41,6 +42,11 @@ public class Journey {
         this.driver = driver;
         this.date = demand.getDate();
         this.time = demand.getTime();
+        this.distance = demand.getDistance();
+        this.cost = calculateCost();
+    }
+    
+    public Journey(Demand demand) {
         this.distance = demand.getDistance();
         this.cost = calculateCost();
     }
@@ -110,7 +116,14 @@ public class Journey {
     }
     
     public double calculateCost(){
-        //this needs to go to whereever the pricing is stored and calculate
-        return 5;
+        Price price = new Price("/");
+        double ratePerMeter = price.getPricePerMile() / 1609.34;
+        double additionalRate = price.getShortDist();
+        
+        if (this.distance > 8046) {
+            return (ratePerMeter * this.distance) + additionalRate;
+        } else {
+            return ratePerMeter * this.distance;
+        }
     }
 }
