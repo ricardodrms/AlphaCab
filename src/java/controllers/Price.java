@@ -55,8 +55,9 @@ public class Price {
         if(distance < 8.048){
             price += shortDist;
         }
-        
-        return price;
+        double roundedprice = Math.round(price*100);
+        roundedprice /= 100;
+        return roundedprice;
     }
     
     public void editShortPrice(double changeKM, double changeShort){
