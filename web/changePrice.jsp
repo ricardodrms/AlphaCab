@@ -21,7 +21,7 @@
             
         <form method="POST"
               action="ChangePrice.do">
-            Price per mile: <input type="number" name="pricePerMile" value="<%= price.getPricePerMile()%>"><br>
+            Price per mile: <input type="number" name="pricePerMile" value="<%= price.getPricePerKM()%>"><br>
             Short Distance modifier (0-5 miles): <input type="number" name="short" value="<%= price.getShortDist()%>"><br>
             <input type="submit" value="Change Price">
         </form>

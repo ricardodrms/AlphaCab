@@ -4,6 +4,7 @@
     Author     : Hannah
 --%>
 
+<%@page import="controllers.Price"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="models.Journey"%>
@@ -31,6 +32,7 @@
                 <th>Cost</th> 
             </tr>
             <%
+                Price price = new Price(application.getRealPath("/"));
                 BookingDB bookingDB = new BookingDB((Connection) request.getServletContext().getAttribute("connection"));
                 List<Journey> journeys = bookingDB.viewAllCompletedBookings();
                 for (int i = 0; i < journeys.size(); i++) {
@@ -40,7 +42,7 @@
                 <td> <%= j.getDate()%> </td>
                 <td> <%= j.getCustomer().getName()%> </td>
                 <td> <%= j.getDestination()%> </td>
-                <td> <%= j.getCost()%> </td>
+                <td> <%= price.getPrice(j.getDistance())%> </td>
             </tr>
             <%
                 } //ending the loop from above

@@ -4,6 +4,7 @@
     Author     : Hannah
 --%>
 
+<%@page import="controllers.Price"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Calendar"%>
@@ -23,14 +24,16 @@
         <%
                 BookingDB bookingDB = new BookingDB((Connection) request.getServletContext().getAttribute("connection"));
                 Calendar c = new GregorianCalendar();
-                SimpleDateFormat formatter= new SimpleDateFormat("dd/MMM/yyyy");
+                SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
                 String date = formatter.format(c.getTime());
                 List<Journey> journeys = bookingDB.viewDailyBookings(date);
                 double turnover = 0;
                 
+                Price price = new Price(application.getRealPath("/"));
+                
                 for (int i = 0; i < journeys.size(); i++) {
                     Journey j = journeys.get(i);
-                    turnover += j.getCost();
+                    turnover += price.getPrice(j.getDistance());
                 }
             %>
         <h1>Daily report for <%= date %></h1>

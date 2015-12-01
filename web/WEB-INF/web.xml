@@ -20,6 +20,10 @@
         <servlet-class>controllers.CheckCustomerDetails</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeleteDriverServlet</servlet-name>
+        <servlet-class>controllers.DeleteDriverServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>DemandJourney</servlet-name>
         <servlet-class>controllers.DemandJourney</servlet-class>
     </servlet>
@@ -27,6 +31,18 @@
         <servlet-name>ChangePriceServlet</servlet-name>
         <servlet-class>controllers.ChangePriceServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddDriverServlet</servlet-name>
+        <servlet-class>controllers.AddDriverServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddDriverServlet</servlet-name>
+        <url-pattern>/addDriver.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteDriverServlet</servlet-name>
+        <url-pattern>/deleteDriver.do</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePriceServlet</servlet-name>
         <url-pattern>/ChangePrice.do</url-pattern>
