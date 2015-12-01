@@ -22,10 +22,16 @@
     </head>
     <body>
         <%
+         
+                String date = request.getParameter("report_date");
+                if (date == null){
+                    Calendar c = new GregorianCalendar();
+                    SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+                    date = formatter.format(c.getTime());
+                }
+ 
                 BookingDB bookingDB = new BookingDB((Connection) request.getServletContext().getAttribute("connection"));
-                Calendar c = new GregorianCalendar();
-                SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
-                String date = formatter.format(c.getTime());
+
                 List<Journey> journeys = bookingDB.viewDailyBookings(date);
                 double turnover = 0;
                 
@@ -40,7 +46,11 @@
         <form action="index.jsp">
             <input type="submit" value="Back to menu">
         </form>
-        <br>
+        <br><br>
+        <form method="POST" action="dailyReport.jsp">
+            <input type="date" value="<%= date%>" name="report_date"><br>
+            <input type="submit" value="Submit">
+        </form><br>
         Number of bookings today: <%= journeys.size() %><br>
         Daily turnover: <%= turnover %><br>
         

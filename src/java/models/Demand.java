@@ -117,6 +117,6 @@ public class Demand {
         String origin = this.customer.getAddress();
         String destin = this.destination;
         
-        return CalculateDistance.calculate(origin, destin).getDistanceAsInt() / 1000;
+        return ((double) CalculateDistance.calculate(origin, destin).getDistanceAsInt()) / 1000;
     }
 }

@@ -25,12 +25,14 @@
                 <li>Incurred Cost: £<%
                     Price price = new Price(application.getRealPath("/"));
                     double cost = price.getPrice(demand.getDistance());
-                    out.print(Math.round(cost*100)/100 );
+                    out.print(cost);
                     %>
                 </li>
                 <li>VAT Added @ 20%: £<%
-                    double totalCost = (Math.round(cost*100)/100 * 0.2) + cost;
-                    out.print(Math.round((cost*0.2)*100)/100 );
+                    double vatcost = Math.round((cost*0.2)*100);
+                    vatcost /= 100;
+                    double totalCost = cost + vatcost;
+                    out.print(vatcost);
                     %>
                 </li>
                 <li>Total Cost: £<%=totalCost%>
