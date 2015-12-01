@@ -46,7 +46,7 @@ public class ChangePriceServlet extends HttpServlet {
             out.println("<body>");
             out.println("<h1>Price change successful</h1>");
             
-            out.println("<form action=\"headOfficeHomePage.jsp\"><input type=\"submit\" value=\"Back to menu\"></form>");
+            out.println("<form action=\"index.jsp\"><input type=\"submit\" value=\"Back to menu\"></form>");
             out.println("</body>");
             out.println("</html>");
         }

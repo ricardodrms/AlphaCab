@@ -17,7 +17,7 @@
     </head>
     <body>
         <h1>All Alphacab drivers</h1>
-        <form action="headOfficeHomePage.jsp">
+        <form action="index.jsp">
             <input type="submit" value="Back to menu">
         </form>
         <br><br>

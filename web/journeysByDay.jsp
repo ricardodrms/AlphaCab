@@ -1,9 +1,10 @@
 <%-- 
     Document   : journeysByDay
     Created on : 27-Nov-2015, 15:36:11
-    Author     : Hannah
+    Author     : lul
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="controllers.Price"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.GregorianCalendar"%>
@@ -20,11 +21,25 @@
     </head>
     <body>
         <h1>All journeys by day</h1>
-        <form action="headOfficeHomePage.jsp">
-            <input type="submit" value="Back to menu">
+        <%
+            Price price = new Price(application.getRealPath("/"));
+                BookingDB bookingDB = new BookingDB((Connection) request.getServletContext().getAttribute("connection"));
+                String date = request.getParameter("job_date");
+                if (date == null){
+                    Calendar c = new GregorianCalendar();
+                    SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+                    date = formatter.format(c.getTime());
+                }
+        %>
+        <form action="index.jsp">
+        <input type="submit" value="Back to menu">
+        </form> 
+        <br><br>
+        <form method="POST" action="journeysByDay.jsp">
+            <input type="date" value="<%= date%>" name="job_date"><br>
+            <input type="submit" value="Submit">
         </form>
-        <br>
-        <table  border="1" style="width:50%">
+        <table  border="1" style="width:50%" id="journeysTable">
             <tr>
                 <th>Date</th>
                 <th>Customer</th>
@@ -32,9 +47,7 @@
                 <th>Cost</th> 
             </tr>
             <%
-                Price price = new Price(application.getRealPath("/"));
-                BookingDB bookingDB = new BookingDB((Connection) request.getServletContext().getAttribute("connection"));
-                List<Journey> journeys = bookingDB.viewAllCompletedBookings();
+                List<Journey> journeys = bookingDB.viewDailyBookings(date);
                 for (int i = 0; i < journeys.size(); i++) {
                     Journey j = journeys.get(i);
             %>

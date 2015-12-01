@@ -64,7 +64,7 @@
 %>
         </table>
 
-        <form action="headOfficeHomePage.jsp">
+        <form action="index.jsp">
             <input type="submit" value="Back to menu">
         </form>
     </body>

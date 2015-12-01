@@ -25,8 +25,8 @@
             Short Distance modifier (0-5 miles): <input type="number" name="short" value="<%= price.getShortDist()%>"><br>
             <input type="submit" value="Change Price">
         </form>
-        <FORM>
-            <INPUT Type="button" VALUE="Cancel" onClick="history.go(-1);return true;">
-        </FORM>
+        <form action="index.jsp">
+            <INPUT Type="submit" VALUE="Cancel" >
+        </form>
     </body>
 </html>
