@@ -117,13 +117,10 @@ public class Journey {
     
     public double calculateCost(){
         Price price = new Price("/");
-        double ratePerMeter = price.getPricePerMile() / 1609.34;
+        double ratePerMeter = price.getPricePerKM();
         double additionalRate = price.getShortDist();
         
-        if (this.distance > 8046) {
-            return (ratePerMeter * this.distance) + additionalRate;
-        } else {
-            return ratePerMeter * this.distance;
-        }
+        
+        return 0.0;
     }
 }

@@ -130,7 +130,7 @@ public class BookingDB {
             Statement state = conn.createStatement();
             ResultSet rs = state.executeQuery(String.format(
                     "SELECT * from Journey INNER JOIN drivers ON Journey.`Drivers.Registration`=Drivers.Registration " + 
-                            "INNER JOIN customer ON Journey.`Customer.id`=Customer.id WHERE date=%s", date));
+                            "INNER JOIN customer ON Journey.`Customer.id`=Customer.id WHERE date='%s'", date));
             while(rs.next()){
                 int id = rs.getInt("id");
                 String dest = rs.getString("Destination");

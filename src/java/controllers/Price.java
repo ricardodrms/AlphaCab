@@ -5,22 +5,13 @@
  */
 package controllers;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.servlet.SessionTrackingMode.URL;
 
 /**
  *
@@ -29,7 +20,7 @@ import static javax.servlet.SessionTrackingMode.URL;
 public class Price {
     
     private String fileName = "price.txt";
-    private double pricePerMile;
+    private double pricePerKM;
     private double shortDist;
     private String real;
 
@@ -40,7 +31,7 @@ public class Price {
             real = realPath;
             BufferedReader br = new BufferedReader(new FileReader(real + "WEB-INF/" + fileName));            
             String line = br.readLine();
-            pricePerMile = Double.parseDouble(line.replaceAll("price=", ""));
+            pricePerKM = Double.parseDouble(line.replaceAll("price=", ""));
             line = br.readLine();
             shortDist = Double.parseDouble(line.replaceAll("short=", ""));
         } catch (FileNotFoundException ex) {
@@ -50,8 +41,8 @@ public class Price {
         }
     }
 
-    public double getPricePerMile() {
-        return pricePerMile;
+    public double getPricePerKM() {
+        return pricePerKM;
     }
 
     public double getShortDist() {
@@ -59,28 +50,27 @@ public class Price {
     }
     
     public double getPrice(double distance){
-        double price = distance * pricePerMile;
+        double price = distance * pricePerKM;
         
-        if(distance < 5){
+        if(distance < 8.048){
             price += shortDist;
         }
         
         return price;
     }
     
-    public void editShortPrice(double changeMile, double changeShort){
+    public void editShortPrice(double changeKM, double changeShort){
         shortDist = changeShort;
-        pricePerMile = changeMile;
+        pricePerKM = changeKM;
         
         try {
             // Put some bytes in a buffer so we can
             // write them. Usually this would be
             // image data or something. Or it might
             // be unicode text.
-            String bytes = "price=" + pricePerMile + "\nshort=" + shortDist;
+            String bytes = "price=" + pricePerKM + "\nshort=" + shortDist;
             byte[] buffer = bytes.getBytes();
 
-            String sRootPath = new File("").getAbsolutePath();
             FileOutputStream fos = new FileOutputStream(real + "WEB-INF/" + fileName, false);
             fos.write(buffer);
             fos.flush();
