@@ -33,14 +33,24 @@ public class CalculateDistance {
 
         jsonResponse = executeGet(requestURL);
         Gson gson = new GsonBuilder().create();
-        GoogleDistanceObject gDistanceObject = gson.fromJson(jsonResponse, GoogleDistanceObject.class);
-        Row row = gDistanceObject.getRows().get(0);
-        Element element = row.getElements().get(0);
-        Distance_ distanceElement = element.getDistance();
-        
-        Distance distance = new Distance(distanceElement.getText(), distanceElement.getValue());
-        
-        return distance;
+
+        try {
+            GoogleDistanceObject gDistanceObject = gson.fromJson(jsonResponse, GoogleDistanceObject.class);
+
+            if (gDistanceObject == null) {
+                return new Distance("", 0);
+            } else {
+                Row row = gDistanceObject.getRows().get(0);
+                Element element = row.getElements().get(0);
+                Distance_ distanceElement = element.getDistance();
+
+                return new Distance(distanceElement.getText(), distanceElement.getValue());
+            }
+        } catch (Exception e) {
+            System.out.println("Error in obtaining address");
+            return new Distance("", 0);
+        }
+
     }
 
     private static String createURL(String address1, String address2) {
@@ -57,7 +67,7 @@ public class CalculateDistance {
         } catch (Exception e) {
             System.out.println("Exception Occured");
         }
-        
+
         return null;
     }
 

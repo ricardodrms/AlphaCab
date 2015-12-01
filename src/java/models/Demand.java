@@ -6,6 +6,7 @@
 package models;
 
 import WebServices.CalculateDistance;
+import WebServices.Distance;
 import java.sql.Time;
 import java.util.Date;
 
@@ -14,6 +15,7 @@ import java.util.Date;
  * @author rocharic
  */
 public class Demand {
+
     private int id;
     private Customer customer;
     private String destination;
@@ -31,7 +33,7 @@ public class Demand {
         this.status = Status.Outstanding;
         this.distance = calcDistance();
     }
-    
+
     //for use when reading from DB
     public Demand(int id, String name, String address, String destination, Date date, Time time, Status status) {
         this.id = id;
@@ -42,7 +44,7 @@ public class Demand {
         this.status = status;
         this.distance = calcDistance();
     }
-    
+
     public Demand(int id, Customer customer, String destination, Date date, Time time, Status status) {
         this.id = id;
         this.customer = customer;
@@ -60,7 +62,7 @@ public class Demand {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public double getDistance() {
         return distance;
     }
@@ -100,7 +102,7 @@ public class Demand {
     public Time getTime() {
         return time;
     }
-    
+
     public void setTime(Time time) {
         this.time = time;
     }
@@ -112,11 +114,16 @@ public class Demand {
     public void setStatus(Status status) {
         this.status = status;
     }
-    
-    public double calcDistance(){
+
+    public double calcDistance() {
         String origin = this.customer.getAddress();
         String destin = this.destination;
+        Distance dist = CalculateDistance.calculate(origin, destin);
         
-        return ((double) CalculateDistance.calculate(origin, destin).getDistanceAsInt()) / 1000;
+        if (dist != null) {
+            return dist.getDistanceAsInt() / 1000;
+        }
+        
+        return 0;
     }
 }
