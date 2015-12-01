@@ -18,18 +18,22 @@
                 String Password = request.getParameter("Password");
                 
                 DriverDB driver = new models.DriverDB((Connection)request.getServletContext().getAttribute("connection"));
-                
+                if(driver.doDriverLogin(Registration, Password) != null ){
                 String Drivername = driver.doDriverLogin(Registration, Password).getName();
                 //Drivername = Driver.doLogin(Name, password);
-                if (Drivername != null){
+//                if (Drivername != null){
                     
                 session.setAttribute("Drivername", Drivername);
                 session.setAttribute("Registration", Registration);
                 response.sendRedirect("index.jsp");
-
-                    out.println("Valid login credentials");
-                } else {
+//
+//                    out.println("Valid login credentials");
+//                } else {
+//                    out.println("Invalid login credentials");
+//                    response.sendRedirect("index.jsp");
+                }else{
                     out.println("Invalid login credentials");
+                    response.sendRedirect("login.jsp");
                 }
 
         %>
