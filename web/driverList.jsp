@@ -33,7 +33,7 @@
             </tr>
             <%
                 DriverDB driverDB = new DriverDB((Connection) request.getServletContext().getAttribute("connection"));
-                List<Driver> drivers = driverDB.getAllDrivers();
+                List<Driver> drivers = driverDB.getAllDrivers(true);
                 for (int i = 0; i < drivers.size(); i++) {
                     Driver c = drivers.get(i);
             %>

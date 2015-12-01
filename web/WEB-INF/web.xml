@@ -35,6 +35,10 @@
         <servlet-name>AddDriverServlet</servlet-name>
         <servlet-class>controllers.AddDriverServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AssignBookingServlet</servlet-name>
+        <servlet-class>controllers.AssignBookingServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddDriverServlet</servlet-name>
         <url-pattern>/addDriver.do</url-pattern>
@@ -54,6 +58,10 @@
     <servlet-mapping>
         <servlet-name>DemandJourney</servlet-name>
         <url-pattern>/DemandJourney.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AssignBookingServlet</servlet-name>
+        <url-pattern>/assignBooking.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

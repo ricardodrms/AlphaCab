@@ -27,12 +27,45 @@ public class BookingDB {
         this.conn = conn;
     }
     
+     public Demand getDemand(int id){
+         Demand demand = null;
+        try {
+            Statement state = conn.createStatement();
+            ResultSet rs = state.executeQuery("SELECT * from demands WHERE status like 'outstanding' and `id`=" + id);
+            while(rs.next()){
+                String name = rs.getString("Name");
+                String address = rs.getString("Address");
+                String dest = rs.getString("Destination");
+                Date date = rs.getDate("Date");
+                Time time = rs.getTime("Time");
+                Status status;
+                try{
+                    status = Status.valueOf(rs.getString("Status"));
+                }
+                catch(Exception e){
+                    status = Status.Outstanding;
+                }
+
+                demand = new Demand(id, name, address, dest, date, time, status);
+                break;
+            }
+            
+            state.close();
+            rs.close();
+
+        } catch (SQLException e) {
+            //System.err.println("Error: " + e);
+
+        }//try
+        return demand;
+    }
+    
     public boolean addBooking(Demand demand){
         try {
             Statement state = conn.createStatement();
             String dateString = new SimpleDateFormat("yyyy-MM-dd").format(demand.getDate());
             state.executeUpdate(String.format(
-                    "INSERT INTO demands (Name, Address, Destination, Date, Time, Status) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')"
+                    "INSERT INTO demands (Name, Address, Destination, Date, Time, Status) VALUES ('%s', '%s', \"%s\", '%s', '%s', '%s')"
                     , demand.getName(), demand.getAddress(), demand.getDestination(), dateString, demand.getTime(), demand.getStatus()));
             state.close();
 
@@ -42,14 +75,16 @@ public class BookingDB {
         return true;
     }
     
-    public boolean assignBooking(Demand demand, Driver driver){
+    public boolean assignBooking(Demand demand, String driver){
         //set status to assigned/completed in demand table and also create a journey entry in journey table
         
          try {
+             String dateString = new SimpleDateFormat("yyyy-MM-dd").format(demand.getDate());
+              String timeString = new SimpleDateFormat("HH:mm").format(demand.getTime());
             Statement state = conn.createStatement();
             state.executeUpdate(String.format(
-                    "INSERT INTO journey (Destination, Distance, `Customer.id`, `Drivers.Registration`, Date, Time) VALUES ('%s', '%d', '%d', '%s', '%s', '%s')"
-                    , demand.getDestination(), demand.getDistance(), demand.getCustomer().getId(), driver.getReg(), demand.getDate(), demand.getTime()));
+                    "INSERT INTO journey (Destination, Distance, `Customer.id`, `Drivers.Registration`, Date, Time) VALUES (\"%s\", %s, %s, '%s', '%s', '%s')"
+                    , demand.getDestination(), demand.getDistance(), demand.getCustomer().getId(), driver, dateString, timeString));
             state.executeUpdate(String.format(
                     "UPDATE demands SET status='Assigned' WHERE id=%d", demand.getId()));
             state.close();
