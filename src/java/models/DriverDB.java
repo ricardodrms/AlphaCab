@@ -55,18 +55,20 @@ public class DriverDB {
         return true;
     }
 
-    public List<Driver> getAllDrivers() {
+    public List<Driver> getAllDrivers(boolean removeAdmin) {
         List<Driver> drivers = new ArrayList<Driver>();
         try {
             Statement state = conn.createStatement();
             ResultSet rs = state.executeQuery("SELECT * from drivers");
-            while(rs.next()){
-                String reg = rs.getString(1);
-                String name = rs.getString(2);
-                String pass = rs.getString(3);
-                drivers.add(new Driver(reg, name, pass));
+            while (rs.next()) {
+                String reg = rs.getString(1).trim();
+                if (!reg.equals("ADMIN") || !removeAdmin) {
+                    String name = rs.getString(2);
+                    String pass = rs.getString(3);
+                    drivers.add(new Driver(reg, name, pass));
+                }
             }
-            
+
             state.close();
             rs.close();
 
@@ -76,17 +78,17 @@ public class DriverDB {
         }//try
         return drivers;
     }
-    
-    public Driver doDriverLogin(String registration, String pass){
+
+    public Driver doDriverLogin(String registration, String pass) {
         Driver driver = null;
         try {
             Statement state = conn.createStatement();
             ResultSet rs = state.executeQuery(String.format("SELECT * from drivers WHERE Registration = '%s' AND password = '%s'", registration, pass));
-            while(rs.next()){
+            while (rs.next()) {
 
                 driver = new Driver(rs.getString(1), rs.getString(2), rs.getString(3));
             }
-            
+
             state.close();
             rs.close();
 
@@ -102,9 +104,9 @@ public class DriverDB {
         try {
             Statement state = conn.createStatement();
             ResultSet rs = state.executeQuery(String.format(
-                    "SELECT * from Journey INNER JOIN drivers ON Journey.`Drivers.Registration`=Drivers.Registration " + 
-                            "INNER JOIN customer ON Journey.`Customer.id`=Customer.id WHERE `Drivers.Registration`='%s'", reg));
-            while(rs.next()){
+                    "SELECT * from Journey INNER JOIN drivers ON Journey.`Drivers.Registration`=Drivers.Registration "
+                    + "INNER JOIN customer ON Journey.`Customer.id`=Customer.id WHERE `Drivers.Registration`='%s'", reg));
+            while (rs.next()) {
                 int id = rs.getInt("id");
                 String dest = rs.getString("Destination");
                 double distance = rs.getDouble("Distance");
@@ -114,7 +116,7 @@ public class DriverDB {
                 Driver driver = new Driver(reg, rs.getString("Name"), rs.getString("password"));
                 journeys.add(new Journey(id, dest, cust, driver, date, time, distance));
             }
-            
+
             state.close();
             rs.close();
 
@@ -124,5 +126,5 @@ public class DriverDB {
         }//try
         return journeys;
     }
-    
+
 }
