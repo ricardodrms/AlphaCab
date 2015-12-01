@@ -29,6 +29,7 @@ public class HomePageController {
             types.add("<li><a href='journeysByDay.jsp'>View All Journeys</a></li>");
             types.add("<li><a href='dailyReport.jsp'>View Daily Report</a></li>");
             types.add("<li><a href='changePrice.jsp'>Change Prices</a></li>");
+            types.add("<li><a href='Logout.jsp.jsp'>Logout</a></li>");
             /*
             <h1>Menu</h1>
             <div id='cssmenu'>    
@@ -49,6 +50,7 @@ public class HomePageController {
         } else {
             // Otherwise Driver has Logged in
             types.add("<li><a href='DriverJourneyView.jsp'>View all Journeys</a></li>");
+            types.add("<li><a href='Logout.jsp'>Logout</a></li>");
         }
         
         return types;
