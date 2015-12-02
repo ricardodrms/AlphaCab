@@ -104,7 +104,7 @@ public class DriverDB {
         try {
             Statement state = conn.createStatement();
             ResultSet rs = state.executeQuery(String.format(
-                    "SELECT * from Journey INNER JOIN drivers ON Journey.`Drivers.Registration`=Drivers.Registration "
+                    "SELECT Journey.*, Drivers.*, Customer.`name` as `CustName`, Customer.`Address`  from Journey INNER JOIN drivers ON Journey.`Drivers.Registration`=Drivers.Registration "
                     + "INNER JOIN customer ON Journey.`Customer.id`=Customer.id WHERE `Drivers.Registration`='%s'", reg));
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -112,7 +112,7 @@ public class DriverDB {
                 double distance = rs.getDouble("Distance");
                 Date date = rs.getDate("Date");
                 Time time = rs.getTime("Time");
-                Customer cust = new Customer(rs.getInt("Customer.id"), rs.getString("Name"), rs.getString("Address"));
+                Customer cust = new Customer(rs.getInt("Customer.id"), rs.getString("CustName"), rs.getString("Address"));
                 Driver driver = new Driver(reg, rs.getString("Name"), rs.getString("password"));
                 journeys.add(new Journey(id, dest, cust, driver, date, time, distance));
             }

@@ -27,7 +27,7 @@
             <tr>
                 <th>Destination</th>
                 <th>Distance</th>
-                <th>Customer ID</th> 
+                <th>Customer</th> 
                 <th>Date</th> 
                 <th>Time</th> 
             </tr>
