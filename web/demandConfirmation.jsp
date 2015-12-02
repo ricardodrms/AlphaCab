@@ -4,7 +4,7 @@
     Author     : Jarrett
 --%>
 
-<%@page import="controllers.Price"%>
+<%@page import="models.Price"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

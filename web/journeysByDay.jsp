@@ -5,7 +5,7 @@
 --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="controllers.Price"%>
+<%@page import="models.Price"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="models.Journey"%>

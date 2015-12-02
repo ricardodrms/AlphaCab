@@ -4,7 +4,7 @@
     Author     : Hannah
 --%>
 
-<%@page import="controllers.Price"%>
+<%@page import="models.Price"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.Calendar"%>

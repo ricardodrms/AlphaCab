@@ -15,12 +15,13 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
  * @author Kyran
  */
-public class TestFilter implements Filter {
+public class LoggingRequestsFilter implements Filter {
     
     private static final boolean debug = true;
 
@@ -29,7 +30,7 @@ public class TestFilter implements Filter {
     // configured. 
     private FilterConfig filterConfig = null;
     
-    public TestFilter() {
+    public LoggingRequestsFilter() {
     }    
     
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
@@ -98,36 +99,15 @@ public class TestFilter implements Filter {
             FilterChain chain)
             throws IOException, ServletException {
         
-        if (debug) {
-            log("TestFilter:doFilter()");
+        HttpServletRequest httpReq = (HttpServletRequest) request;
+        
+        String name = httpReq.getRemoteUser();
+        
+        if(name != null){
+            filterConfig.getServletContext().log("User " + name + " is updating");
         }
         
-        doBeforeProcessing(request, response);
-        
-        Throwable problem = null;
-        try {
-            chain.doFilter(request, response);
-        } catch (Throwable t) {
-	    // If an exception is thrown somewhere down the filter chain,
-            // we still want to execute our after processing, and then
-            // rethrow the problem after that.
-            problem = t;
-            t.printStackTrace();
-        }
-        
-        doAfterProcessing(request, response);
-
-	// If there was a problem, we want to rethrow it if it is
-        // a known type, otherwise log it.
-        if (problem != null) {
-            if (problem instanceof ServletException) {
-                throw (ServletException) problem;
-            }
-            if (problem instanceof IOException) {
-                throw (IOException) problem;
-            }
-            sendProcessingError(problem, response);
-        }
+        chain.doFilter(request, response);
     }
 
     /**
