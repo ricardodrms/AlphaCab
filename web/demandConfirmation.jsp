@@ -4,6 +4,8 @@
     Author     : Jarrett
 --%>
 
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="models.Price"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,7 +22,13 @@
                     models.Demand demand = (models.Demand) session.getAttribute("Demand");
                     out.print(demand.getCustomer().getName());
                     %>
-                <li>Journey Date: <%=demand.getDate()%></li>
+                <li>Journey Date: <% 
+                    DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+                    DateFormat timeFormatter = new SimpleDateFormat("HH:mm");
+                    String date = dateFormatter.format(demand.getDate());
+                    String time = timeFormatter.format(demand.getTime());
+                    out.print(date + " at " + time);
+                    %></li>
                 <li>Distance: <%=demand.getDistance()%></li>
                 <li>Incurred Cost: £<%
                     Price price = new Price(application.getRealPath("/"));
