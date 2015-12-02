@@ -29,7 +29,7 @@ public class Price {
             // FileReader reads text files in the default encoding.
             // Always wrap FileReader in BufferedReader.
             real = realPath;
-            BufferedReader br = new BufferedReader(new FileReader(real + "WEB-INF/" + fileName));            
+            BufferedReader br = new BufferedReader(new FileReader(real + "/WEB-INF/" + fileName));            
             String line = br.readLine();
             pricePerKM = Double.parseDouble(line.replaceAll("price=", ""));
             line = br.readLine();
@@ -72,7 +72,7 @@ public class Price {
             String bytes = "price=" + pricePerKM + "\nshort=" + shortDist;
             byte[] buffer = bytes.getBytes();
 
-            FileOutputStream fos = new FileOutputStream(real + "WEB-INF/" + fileName, false);
+            FileOutputStream fos = new FileOutputStream(real + "/WEB-INF/" + fileName, false);
             fos.write(buffer);
             fos.flush();
             fos.close();
