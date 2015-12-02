@@ -50,6 +50,28 @@ public class CustomerDB {
         return true;
     }
     
+    public Customer getCustomerWithoutID(Customer customer){
+        Customer cust = null;
+        try {
+            Statement state = conn.createStatement();
+            ResultSet rs = state.executeQuery(String.format(
+                    "SELECT `id` from `customer` WHERE `name` like '%s' AND `address` like '%s'",
+                    customer.getName(), customer.getAddress()));
+            while(rs.next()){
+                int id = rs.getInt("id");
+                cust = new Customer(id, customer.getName(), customer.getAddress());
+            }
+            
+            state.close();
+            rs.close();
+
+        } catch (SQLException e) {
+            //System.err.println("Error: " + e);
+
+        }//try
+        return cust;
+    }
+    
     public List<Customer> getAllCustomers() {
         List<Customer> customers = new ArrayList<Customer>();
         try {

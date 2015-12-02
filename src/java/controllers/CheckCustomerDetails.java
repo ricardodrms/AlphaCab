@@ -43,6 +43,8 @@ public class CheckCustomerDetails extends HttpServlet {
         if (! custDB.checkCustomerExistence(customer)) {
             custDB.addCustomer(customer);
         }
+        customer = custDB.getCustomerWithoutID(customer);
+        
         request.getSession().setAttribute("customer", customer);
         RequestDispatcher view = request.getRequestDispatcher("journeyDetails.html");
         view.forward(request, response);

@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.BookingDB;
+import models.CustomerDB;
+import models.Demand;
 
 /**
  *
@@ -39,7 +41,12 @@ public class AssignBookingServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
 
         BookingDB bookingDB = new BookingDB((Connection) request.getServletContext().getAttribute("connection"));
-        if (bookingDB.assignBooking(bookingDB.getDemand(id), reg)) {
+        Demand demand = bookingDB.getDemand(id);
+        
+        CustomerDB custDB = new CustomerDB((Connection) request.getServletContext().getAttribute("connection"));
+        
+        demand.setCustomer(custDB.getCustomerWithoutID(demand.getCustomer()));
+        if (bookingDB.assignBooking(demand, reg)) {
 
             RequestDispatcher view = request.getRequestDispatcher("assignBooking.jsp");
             view.forward(request, response);
