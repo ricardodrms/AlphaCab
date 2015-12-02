@@ -121,7 +121,7 @@ public class Demand {
         Distance dist = CalculateDistance.calculate(origin, destin);
         
         if (dist != null) {
-            return dist.getDistanceAsInt() / 1000;
+            return (double) dist.getDistanceAsInt() / 1000;
         }
         
         return 0;
