@@ -29,7 +29,7 @@
                     String time = timeFormatter.format(demand.getTime());
                     out.print(date + " at " + time);
                     %></li>
-                <li>Distance: <%=demand.getDistance()%></li>
+                <li>Distance: <%=demand.getDistance()%>Km</li>
                 <li>Incurred Cost: £<%
                     Price price = new Price(application.getRealPath("/"));
                     double cost = price.getPrice(demand.getDistance());

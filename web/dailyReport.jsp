@@ -41,6 +41,9 @@
                     Journey j = journeys.get(i);
                     turnover += price.getPrice(j.getDistance());
                 }
+                turnover *= 1.2;
+                double rdtotal = Math.round((turnover * 100)) ;
+                rdtotal /= 100;
             %>
         <h1>Daily report for <%= date %></h1>
         <form action="index.jsp">
@@ -52,7 +55,7 @@
             <input type="submit" value="Submit">
         </form><br>
         Number of bookings today: <%= journeys.size() %><br>
-        Daily turnover: <%= turnover %><br>
+        Daily turnover: £<%= turnover %><br>
         
     </body>
 </html>

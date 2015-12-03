@@ -54,8 +54,12 @@
             <tr>
                 <td> <%= j.getDate()%> </td>
                 <td> <%= j.getCustomer().getName()%> </td>
-                <td> <%= j.getDestination()%> </td>
-                <td> <%= price.getPrice(j.getDistance())%> </td>
+                <td> <%= j.getDestination()%>km </td>
+                <td> <%
+                    double totalcost = price.getPrice(j.getDistance()) * 1.2;
+                    double rdtotal = Math.round((totalcost * 100)) ;
+                    rdtotal /= 100;
+                    out.println("£" + rdtotal); %> </td>
             </tr>
             <%
                 } //ending the loop from above
